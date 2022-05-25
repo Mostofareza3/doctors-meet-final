@@ -4,15 +4,6 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
 exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
-<<<<<<< HEAD
-    const { token } = req.cookie;
-    console.log(token);
-
-    // console.log(token);
-
-    if (!token) {
-        return next(new ErrorHandler("Please Login to access this resource", 401));
-=======
     let token;
     if (req.headers && req.headers.authorization?.startsWith("Bearer")) {
         token = req?.headers?.authorization.split(" ")[1];
@@ -22,7 +13,6 @@ exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
         return next(
             new ErrorHandler("Please Login to access this resource", 401)
         );
->>>>>>> 19aaf689c9ff315b4f1ca9978316f8ff75075ff6
     }
     const decodedData = jwt.verify(token, process.env.JWT_SECRET);
     /* after decoded data we can access user id by using decodedData.id because we previously (in userSchema methods) set {id: user_id} */
