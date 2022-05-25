@@ -4,27 +4,27 @@ const doctorSchema = mongoose.Schema(
     {
         name: {
             type: String,
-            required: true,
+            // required: true,
         },
         username: {
             type: String,
-            required: true,
+            // required: true,
         },
         email: {
             type: String,
-            required: true,
+            // required: true,
         },
         img: {
             type: String,
-            required: true,
+            // required: true,
         },
         specialist: {
             type: String,
-            required: true,
+            // required: true,
         },
         visit: {
             type: Number,
-            required: true,
+            // required: true,
         },
         review: {
             type: Number,
@@ -57,25 +57,25 @@ const doctorSchema = mongoose.Schema(
         ],
         experience: {
             type: Number,
-            required: true,
+            // required: true,
         },
         gender: {
             type: String,
-            required: true,
+            // required: true,
         },
         free: {
             type: Boolean,
-            required: true,
+            // required: true,
         },
         appointmentDay: [
             {
                 type: String,
-                required: true,
+                // required: true,
             },
         ],
         phone: {
             type: String,
-            required: true,
+            // required: true,
         },
         website: {
             type: String,
@@ -93,6 +93,45 @@ const doctorSchema = mongoose.Schema(
                 },
             },
         ],
+        UserReview: [
+            {
+                name: {
+                    type: String,
+                },
+                img: {},
+                email: {
+                    type: String,
+                },
+                rating: {
+                    type: Number,
+                },
+                feedback: {
+                    type: String,
+                },
+            },
+        ],
+        UserReview:[
+            {
+                name:{
+                    type:String,
+                },
+                img:{
+                    type:String,
+                },
+                email:{
+                    type:String,
+                },
+                rating:{
+                    type:Number,
+                },
+                feedback:{
+                    type:String,
+                },      
+            }
+        ],
+        approved: {
+            type: Boolean,
+        },
     },
     { timestamps: true }
 );

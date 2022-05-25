@@ -1,10 +1,13 @@
-const express = require("express");
-const mongoose = require("mongoose");
+// const express = require("express");
+// const mongoose = require("mongoose");
+// const { ObjectId } = require("mongodb");
 const catchAsyncError = require("../middleware/catchAsyncError");
 const DoctorsCollection = require("../models/doctorModel");
-const router = express.Router();
-const ApiFeatures = require("../utils/apiFeatures");
-const ErrorHandler = require("../utils/errorHandler");
+const UsersCollection = require("../models/userModel");
+// const router = express.Router();
+// const ApiFeatures = require("../utils/apiFeatures");
+// const ErrorHandler = require("../utils/errorHandler");
+// const User = require("../models/userModel");
 
 // GET All by doctor
 const getAllDoctors = catchAsyncError(async (req, res, next) => {
@@ -69,6 +72,7 @@ const getDoctorStats = catchAsyncError(async (req, res, next) => {
         });
     }
 });
+
 // GET specific doctor by ID
 const getDoctorById = catchAsyncError(async (req, res, next) => {
     try {
@@ -84,10 +88,27 @@ const getDoctorById = catchAsyncError(async (req, res, next) => {
     }
 });
 
-// post doctor information
+// GET specific doctor by email
+const getDoctorByEmail = catchAsyncError(async (req, res, next) => {
+    try {
+        const data = await DoctorsCollection.find({ email: req.params.email });
+        res.status(200).json({
+            success: true,
+            data,
+        });
+    } catch (err) {
+        res.status(500).json({
+            error: "There was a server side error!",
+        });
+    }
+});
 
+// post doctor information
 const addDoctor = catchAsyncError(async (req, res, next) => {
-    const newDoctor = new DoctorsCollection(req.body);
+    const data = req.body;
+    data["approved"] = false;
+    const newDoctor = new DoctorsCollection(data);
+
     newDoctor.save((err) => {
         if (err) {
             res.status(500).json({
@@ -107,6 +128,51 @@ const updateDoctor = catchAsyncError(async (req, res, next) => {
     const result = DoctorsCollection.findByIdAndUpdate(
         { _id: req.params.id },
         data,
+        {
+            new: true,
+            useFindAndModify: false,
+        },
+        (err) => {
+            if (err) {
+                res.status(500).json({
+                    error: "There was a server side error!",
+                });
+            } else {
+                res.status(200).json({
+                    message: "Doctor was updated successfully!",
+                });
+            }
+        }
+    );
+});
+
+const approveDoctor = catchAsyncError(async (req, res, next) => {
+    const data = req.body;
+    // console.log(data);
+
+    const result2 = await UsersCollection.findOneAndUpdate(
+        { email: req.params.email },
+        { role: "doctor" }
+    );
+
+    const result1 = await DoctorsCollection.findOneAndUpdate(
+        { email: req.params.email },
+        data
+    );
+
+    res.status(200).json({
+        message: "Doctor approval done successfully!",
+    });
+});
+
+const addUserReview = catchAsyncError(async (req, res, next) => {
+    const review = req.body;
+    const data = await DoctorsCollection.find({ _id: req.params.id });
+    const reviews = data[0].UserReview;
+    const newReviews = [...reviews, review];
+    const result = DoctorsCollection.findByIdAndUpdate(
+        { _id: req.params.id },
+        { UserReview: newReviews },
         {
             new: true,
             useFindAndModify: false,
@@ -147,4 +213,7 @@ module.exports = {
     addDoctor,
     getDoctorById,
     getDoctorStats,
+    addUserReview,
+    getDoctorByEmail,
+    approveDoctor,
 };
