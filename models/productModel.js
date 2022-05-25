@@ -19,23 +19,27 @@ const productSchema = mongoose.Schema({
         type: Number,
         default: 0,
     },
-    images: [
-        {
-            public_id: {
-                type: String,
-                required: true,
-            },
-            url: {
-                type: String,
-                required: true,
-            },
-        },
-    ],
+    img1: {
+        type: String,
+        required: true
+    },
+    img2: {
+        type: String,
+        required: true
+    },
+    img3: {
+        type: String,
+        required: true
+    },
+    img4: {
+        type: String,
+        required: true
+    },
     category: {
         type: String,
         required: [true, "Please Enter Product Category"],
     },
-    Stock: {
+    inStock: {
         type: Number,
         required: [true, "Please Enter product Stock"],
         maxLength: [4, "Stock cannot exceed 4 characters"],
@@ -47,34 +51,53 @@ const productSchema = mongoose.Schema({
     },
     reviews: [
         {
-            user: {
+            User: {
                 type: mongoose.Schema.ObjectId,
                 ref: "User",
-                required: true,
+
             },
             name: {
                 type: String,
-                required: true,
+
+            },
+            email: {
+                type: String,
             },
             rating: {
                 type: Number,
-                required: true,
+
             },
             comment: {
                 type: String,
-                required: true,
+
             },
+            img: {
+                type: String,
+                required: true
+            }
         },
     ],
     user: {
         type: mongoose.Schema.ObjectId,
         ref: "User",
-        required: true,
+        // required: true,
     },
     createdAt: {
         type: Date,
         default: Date.now,
     },
 });
+
+
+productSchema.pre(/^find/, function (next) {
+
+    this.populate({
+        path: "user",
+        select: "name email"
+    })
+
+    next();
+})
+
 
 module.exports = mongoose.model("Product", productSchema);
