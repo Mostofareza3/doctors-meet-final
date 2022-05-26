@@ -1,6 +1,6 @@
 const catchAsyncError = require("../middleware/catchAsyncError");
 const Product = require("../models/productModel");
-const ApiFeatures = require("../utils/ApiFeatures");
+const ApiFeatures = require("../utils/apiFeatures");
 const ErrorHandler = require("../middleware/errorHandler");
 
 //create product --Admin Route
