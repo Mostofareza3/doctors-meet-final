@@ -4,7 +4,7 @@ const express = require("express");
 const catchAsyncError = require("../middleware/catchAsyncError");
 const Articles = require("../models/articleModel");
 // const ApiFeatures = require("../utils/apiFeatures");
-// const ErrorHandler = require("../utils/errorHandler");
+const ErrorHandler = require("../middleware/errorHandler");
 
 // GET All by donor
 const allArticles = catchAsyncError(async (req, res, next) => {

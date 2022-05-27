@@ -54,26 +54,26 @@ const productSchema = mongoose.Schema({
             User: {
                 type: mongoose.Schema.ObjectId,
                 ref: "User",
-               
+
             },
             name: {
                 type: String,
-                
+
             },
-            email:{
-                type:String,
+            email: {
+                type: String,
             },
             rating: {
                 type: Number,
-               
+
             },
             comment: {
                 type: String,
-                
+
             },
-            img:{
-                type:String,
-                required:true
+            img: {
+                type: String,
+                required: true
             }
         },
     ],
