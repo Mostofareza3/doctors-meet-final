@@ -120,6 +120,7 @@ const addDoctor = catchAsyncError(async (req, res, next) => {
             });
         }
     });
+    
 });
 
 // update doctor information

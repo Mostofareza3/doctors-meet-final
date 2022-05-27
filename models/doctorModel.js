@@ -93,23 +93,6 @@ const doctorSchema = mongoose.Schema(
                 },
             },
         ],
-        UserReview: [
-            {
-                name: {
-                    type: String,
-                },
-                img: {},
-                email: {
-                    type: String,
-                },
-                rating: {
-                    type: Number,
-                },
-                feedback: {
-                    type: String,
-                },
-            },
-        ],
         UserReview:[
             {
                 name:{
