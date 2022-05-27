@@ -73,8 +73,16 @@ const appointmentSchema = mongoose.Schema(
                 required: true,
             },
         },
-        status: {
-            type: String,
+        payInfo: {
+            amount: {
+                type: Number,
+            },
+            id: {
+                type: String,
+            },
+            status: {
+                type: String,
+            },
         },
     },
     { timestamps: true }

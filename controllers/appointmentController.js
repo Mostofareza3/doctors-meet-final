@@ -119,13 +119,11 @@ const addMultipleAppointment = catchAsyncError(async (req, res, next) => {
 // PUT Appointment
 
 const updateAppointment = catchAsyncError(async (req, res, next) => {
+    const data = req.body;
+    // console.log(data);
     const result = AppointmentsCollection.findByIdAndUpdate(
         { _id: req.params.id },
-        {
-            $set: {
-                status: "active",
-            },
-        },
+        data,
         {
             new: true,
             useFindAndModify: false,
