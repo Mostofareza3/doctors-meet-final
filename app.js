@@ -25,7 +25,7 @@ const doctor = require("./routes/doctorRoute");
 const review = require("./routes/reviewRoute");
 const report = require("./routes/reportRoute");
 const article = require("./routes/articleRoute");
-// const payment = require("./routes/paymentRoute");
+const payment = require("./routes/paymentRoute");
 
 app.use("/api/v1", product);
 app.use("/api/v1", user);
@@ -36,7 +36,7 @@ app.use("/api/v1", appointment);
 app.use("/api/v1", review);
 app.use("/api/v1", report);
 app.use("/api/v1", article);
-// app.use("/api/v1", payment);
+app.use("/api/v1", payment);
 
 // error handler middleware
 app.use(errorMiddleware);
