@@ -14,6 +14,7 @@ const {
     deleteUser,
     getUserByRole,
     SendNotification,
+    NotificationUpdateStatus
 } = require("../controllers/userController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 const router = express.Router();
@@ -35,6 +36,9 @@ router.route("/me/update").put(isAuthenticatedUser, updateProfile);
 router.route('/admin/users/role').get(getUserByRole);
 
 router.route('/admin/users/notify/:id').put(SendNotification);
+
+router.route('/admin/users/notify/status/:id').put(NotificationUpdateStatus);
+
 
 router.route("/admin/users").get(getAllUser);
 
