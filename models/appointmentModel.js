@@ -44,6 +44,7 @@ const appointmentSchema = mongoose.Schema(
         },
         payment: {
             type: Boolean,
+            
         },
         doctorInfo: {
             id: String,
