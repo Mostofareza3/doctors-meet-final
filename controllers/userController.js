@@ -312,6 +312,30 @@ exports.SendNotification = catchAsyncError(async (req, res, next) => {
     );
 });
 
+exports.NotificationUpdateStatus = catchAsyncError(async (req, res, next) => {
+    
+    const result = User.findByIdAndUpdate(
+        { _id: req.params.id },
+        { notification:{status:"read"}},
+        {
+            new: true,
+            useFindAndModify: false,
+        },
+        (err) => {
+            if (err) {
+                res.status(500).json({
+                    error: "There was a server side error!",
+                });
+            } else {
+                res.status(200).json({
+                    message: "Doctor was updated successfully!",
+                });
+            }
+        }
+    );
+});
+
+
 // Delete User --Admin
 exports.deleteUser = catchAsyncError(async (req, res, next) => {
     const user = await User.findById(req.params.id);
