@@ -42,6 +42,6 @@ app.use("/api/v1", article);
 // error handler middleware
 app.use(errorMiddleware);
 
-app.get("/", (req, res) => res.send("hello from server"));
+app.get("/", (req, res) => res.send("Hello from doctor-meet server"));
 
 module.exports = app;
