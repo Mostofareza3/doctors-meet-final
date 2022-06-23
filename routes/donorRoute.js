@@ -11,17 +11,12 @@ const {
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
 router.route("/donor").get(getAllDonors);
-router
-    .route("/donor/add")
-    .post(isAuthenticatedUser, authorizeRoles("admin"), addADonor);
+router.route("/donor/add").post(addADonor);
 
 router.route("/donor/single/:id").get(getDonorById);
 
 router.route("/donor/statistics").get(getDonorStats);
 
-router
-    .route("/donor/:id")
-    .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteDonorData)
-    .put(isAuthenticatedUser, authorizeRoles("admin"), updateDonorDetails);
+router.route("/donor/:id").delete(deleteDonorData).put(updateDonorDetails);
 
 module.exports = router;
